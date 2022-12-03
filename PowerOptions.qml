@@ -27,11 +27,29 @@ Column {
 		text: ""
 	}
 
+	TermLabel {
+		id: confirmLabel
+		visible: false
+	}
+
 	Proxy {
 		id: proxy
 	}
 
 	property var options: []
+	property var selection: undefined
+
+	states: [
+		State {
+			name: "confirm"
+			when: selection !== undefined
+			PropertyChanges {
+				target: confirmLabel
+				text: `\nConfirm ${selection.text}? (y/n)`
+				visible: true
+			}
+		}
+	]
 
 	onVisibleChanged: {
 		if (visible)
@@ -100,12 +118,26 @@ Column {
 
 	function handleKey(event)
 	{
-		for (const option of options)
+		if (state !== "confirm")
 		{
-			if (option.key === event.key)
+			for (const option of options)
 			{
-				option.action()
-				return
+				if (option.key === event.key)
+				{
+					selection = option
+					return
+				}
+			}
+		}
+		else
+		{
+			if (event.key === Qt.Key_Y)
+			{
+				selection.action()
+			}
+			else if (event.key === Qt.Key_N)
+			{
+				selection = undefined
 			}
 		}
 	}
