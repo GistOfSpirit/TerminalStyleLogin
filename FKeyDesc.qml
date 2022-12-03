@@ -17,28 +17,12 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
 import QtQuick 2.15
+import QtQuick.Controls 2.15
 
-Item {
-	property string hostName: "sddm-test"
+import "components"
 
-	property bool canPowerOff: true
-	property bool canReboot: true
-	property bool canSuspend: true
-	property bool canHibernate: true
-	property bool canHybridSleep: true
-
-	function login(user, password, sessionIndex)
-	{
-		loginFailed()
+TermLabel {
+	function setup() {
+		text = `F1 - Power Options\n`
 	}
-
-	function powerOff() {}
-	function reboot() {}
-	function suspend() {}
-	function hibernate() {}
-	function hybridSleep() {}
-
-	signal loginSucceeded()
-
-	signal loginFailed()
 }

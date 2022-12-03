@@ -36,6 +36,13 @@ Rectangle {
 				target: loginForm
 				visible: true
 			}
+		},
+		State {
+			name: "power"
+			PropertyChanges {
+				target: powerOptions
+				visible: true
+			}
 		}
 	]
 
@@ -49,6 +56,10 @@ Rectangle {
 
 		visible: false
 
+		FKeyDesc {
+			id: fKeyDesc
+		}
+
 		TermLabel {
 			text: `${proxy.hostName} sddm\n`
 		}
@@ -57,14 +68,28 @@ Rectangle {
 			id: loginForm
 			visible: false
 		}
+
+		PowerOptions {
+			id: powerOptions
+
+			visible: false
+		}
 	}
 
-	// Keys.onPressed: {
-	// 	if (event.key === Qt.Key_F1)
-	// 	{
-	// 		terminalArea.state = "login"
-	// 	}
-	// }
+	Keys.onPressed: {
+		if (event.key === Qt.Key_F1)
+		{
+			terminalArea.state = "power"
+		}
+		else if (event.key === Qt.Key_Escape)
+		{
+			terminalArea.state = "login"
+		}
+		else if (terminalArea.state === "power")
+		{
+			powerOptions.handleKey(event)
+		}
+	}
 
 	Timer {
 		// Initially the hostname didn't appear, giving it some time
@@ -81,8 +106,17 @@ Rectangle {
 			)
 			{
 				terminalForm.visible = true
+				fKeyDesc.setup()
 				stop()
 			}
+		}
+	}
+
+	Connections {
+		target: proxy
+		function onLoginSucceeded()
+		{
+			terminalForm.visible = false
 		}
 	}
 
