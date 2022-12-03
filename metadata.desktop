@@ -1,0 +1,14 @@
+[SddmGreeterTheme]
+Name=Terminal-Style Login
+Description=An SDDM theme that looks like a terminal
+Author=Rea-Klairi Tasopoulou
+Copyright=(c) 2022, Rea-Klairi Tasopoulou
+License=GNU General Public License v3.0
+Type=sddm-theme
+Version=0.1
+Website=https://github.com/GistOfSpirit/TerminalStyleLogin
+Screenshot=preview.png
+MainScript=Main.qml
+Email=daphazard@gmail.com
+Theme-Id=terminalStyleLogin
+Theme-API=2.0
