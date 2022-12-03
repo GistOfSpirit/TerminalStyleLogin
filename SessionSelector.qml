@@ -63,13 +63,20 @@ TermLabel {
 
 	function handleKey(event)
 	{
-		for (const sessionData of sessions)
+		if (event.key === Qt.Key_Escape)
 		{
-			if (sessionData.key === event.key)
+			selectionMade()
+		}
+		else
+		{
+			for (const sessionData of sessions)
 			{
-				selectedIndex = sessionData.index
-				selectionMade()
-				return
+				if (sessionData.key === event.key)
+				{
+					selectedIndex = sessionData.index
+					selectionMade()
+					return
+				}
 			}
 		}
 	}

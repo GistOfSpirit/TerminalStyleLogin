@@ -120,12 +120,19 @@ Column {
 	{
 		if (state !== "confirm")
 		{
-			for (const option of options)
+			if (event.key === Qt.Key_Escape)
 			{
-				if (option.key === event.key)
+				cancelled()
+			}
+			else
+			{
+				for (const option of options)
 				{
-					selection = option
-					return
+					if (option.key === event.key)
+					{
+						selection = option
+						return
+					}
 				}
 			}
 		}
@@ -141,4 +148,6 @@ Column {
 			}
 		}
 	}
+
+	signal cancelled()
 }

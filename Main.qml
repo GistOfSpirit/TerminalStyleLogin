@@ -96,10 +96,6 @@ Rectangle {
 		{
 			terminalArea.state = "session"
 		}
-		else if (event.key === Qt.Key_Escape)
-		{
-			terminalArea.state = "login"
-		}
 		else if (terminalArea.state === "power")
 		{
 			powerOptions.handleKey(event)
@@ -151,6 +147,14 @@ Rectangle {
 		function onCredentialsEntered(username, password)
 		{
 			proxy.login(username, password, sessionSelector.selectedIndex)
+		}
+	}
+
+	Connections {
+		target: powerOptions
+		function onCancelled()
+		{
+			terminalArea.state = "login"
 		}
 	}
 
