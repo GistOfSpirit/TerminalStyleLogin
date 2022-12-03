@@ -25,13 +25,17 @@ Rectangle {
 
 	color: "black"
 
+	Proxy {
+		id: proxy
+	}
+
 	Column {
 		id: loginForm
 		spacing: 0
 
 		Label {
 			id: testLabel
-			text: `${sddm.hostName || "hostName"} sddm\n`
+			text: `${proxy.hostName} sddm\n`
 
 			font.family: "monospace"
 			color: "white"
@@ -51,7 +55,7 @@ Rectangle {
 			spacing: 0
 
 			Label {
-				text: `${sddm.hostName || "hostName"} login: `
+				text: `${proxy.hostName} login: `
 
 				font.family: "monospace"
 				color: "white"
@@ -101,7 +105,7 @@ Rectangle {
 
 				onAccepted: {
 					passwordInput.readOnly = true
-					sddm.login(usernameInput.text, passwordInput.text, sessionModel.lastIndex)
+					proxy.login(usernameInput.text, passwordInput.text, sessionModel.lastIndex)
 				}
 			}
 		}
@@ -157,7 +161,7 @@ Rectangle {
 	}
 
 	Connections {
-		target: sddm
+		target: proxy
 		function onLoginFailed()
 		{
 			terminalArea.setState("loginFailed")
