@@ -105,7 +105,7 @@ Column {
 	function setState(state)
 	{
 		// Using QML states prevented me from affecting only certain objects
-		switch (state){
+		switch (state) {
 			case "loginFailed":
 			loginFailedLabel.visible = true
 			//fallthrough
