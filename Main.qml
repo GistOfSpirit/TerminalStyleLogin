@@ -25,7 +25,7 @@ Rectangle {
 	id: terminalArea
 	anchors.fill: parent
 
-	color: "black"
+	color: config.background
 
 	state: "login"
 
