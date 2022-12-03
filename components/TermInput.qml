@@ -30,10 +30,9 @@ TextInput {
 	cursorDelegate: Label {
 		id: cursor
 		font.family: config.fontFamily
-		font.pointSize: parseInt(config.fontSize, 10) + 1
-		font.bold: true
+		font.pointSize: config.fontSize
 		color: config.foreground
-		text: "_"
+		text: "▁"
 
 		Timer {
 			running: true
