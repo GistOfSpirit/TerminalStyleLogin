@@ -29,6 +29,7 @@ Item {
 
 	function login(user, password, sessionIndex)
 	{
+		console.log("Failing, test mode")
 		loginFailed()
 	}
 

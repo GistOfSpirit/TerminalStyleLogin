@@ -28,61 +28,51 @@ TermLabel {
 		id: proxy
 	}
 
+	property var sessions: []
+	property int selectedIndex: sessionModel.lastIndex
+
 	onVisibleChanged: {
 		if (visible)
 		{
-			const options = ["---POWER OPTIONS---"]
+			sessions = []
 
-			if (proxy.canPowerOff)
+			const optionCount = Math.min(sessionModel.rowCount(), 9)
+
+			for (let i = 0; i < optionCount; ++i)
 			{
-				options.push("1 - Power Off")
+				sessions.push({
+					index: i,
+					key: 0x31 + i, //starting at Qt::Key_1
+					text: sessionModel.data(
+						sessionModel.index(i, 0),
+						Qt.UserRole + 4
+					)
+				})
 			}
 
-			if (proxy.canReboot)
-			{
-				options.push("2 - Reboot")
-			}
+			const dispOptions = ["---SESSIONS---"]
 
-			if (proxy.canSuspend)
-			{
-				options.push("3 - Suspend")
-			}
+			sessions.forEach(
+				(o) => dispOptions.push(`${o.index + 1} - ${o.text}`))
 
-			if (proxy.canHibernate)
-			{
-				options.push("4 - Hibernate")
-			}
+			dispOptions.push("Esc - Return to login")
 
-			if (proxy.canHybridSleep)
-			{
-				options.push("5 - Hybrid Sleep")
-			}
-
-			options.push("Esc - Return to login")
-
-			text = options.join("\n")
+			text = dispOptions.join("\n")
 		}
 	}
 
 	function handleKey(event)
 	{
-		switch (event.key)
+		for (const sessionData of sessions)
 		{
-			case Qt.Key_1:
-				proxy.powerOff()
-				break
-			case Qt.Key_2:
-				proxy.reboot()
-				break
-			case Qt.Key_3:
-				proxy.suspend()
-				break
-			case Qt.Key_4:
-				proxy.hibernate()
-				break
-			case Qt.Key_5:
-				proxy.hybridSleep()
-				break
+			if (sessionData.key === event.key)
+			{
+				selectedIndex = sessionData.index
+				selectionMade()
+				return
+			}
 		}
 	}
+
+	signal selectionMade()
 }

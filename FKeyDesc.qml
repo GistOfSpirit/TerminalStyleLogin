@@ -22,7 +22,13 @@ import QtQuick.Controls 2.15
 import "components"
 
 TermLabel {
-	function setup() {
-		text = `F1 - Power Options\n`
+	function setup({ sessionIndex }) {
+		const sessionText = sessionModel.data(
+			sessionModel.index(sessionIndex, 0),
+			Qt.UserRole + 4
+		)
+
+		text = `F1 - Power Options | `
+			+ `F2 - Session [${sessionText}]\n`
 	}
 }

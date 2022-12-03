@@ -43,6 +43,13 @@ Rectangle {
 				target: powerOptions
 				visible: true
 			}
+		},
+		State {
+			name: "session"
+			PropertyChanges {
+				target: sessionSelector
+				visible: true
+			}
 		}
 	]
 
@@ -71,7 +78,11 @@ Rectangle {
 
 		PowerOptions {
 			id: powerOptions
+			visible: false
+		}
 
+		SessionSelector {
+			id: sessionSelector
 			visible: false
 		}
 	}
@@ -81,6 +92,10 @@ Rectangle {
 		{
 			terminalArea.state = "power"
 		}
+		else if (event.key === Qt.Key_F2)
+		{
+			terminalArea.state = "session"
+		}
 		else if (event.key === Qt.Key_Escape)
 		{
 			terminalArea.state = "login"
@@ -88,6 +103,10 @@ Rectangle {
 		else if (terminalArea.state === "power")
 		{
 			powerOptions.handleKey(event)
+		}
+		else if (terminalArea.state === "session")
+		{
+			sessionSelector.handleKey(event)
 		}
 	}
 
@@ -106,10 +125,17 @@ Rectangle {
 			)
 			{
 				terminalForm.visible = true
-				fKeyDesc.setup()
+				setupFKeyDesc()
 				stop()
 			}
 		}
+	}
+
+	function setupFKeyDesc()
+	{
+		fKeyDesc.setup({
+			sessionIndex: sessionSelector.selectedIndex
+		})
 	}
 
 	Connections {
@@ -117,6 +143,23 @@ Rectangle {
 		function onLoginSucceeded()
 		{
 			terminalForm.visible = false
+		}
+	}
+
+	Connections {
+		target: loginForm
+		function onCredentialsEntered(username, password)
+		{
+			proxy.login(username, password, sessionSelector.selectedIndex)
+		}
+	}
+
+	Connections {
+		target: sessionSelector
+		function onSelectionMade()
+		{
+			setupFKeyDesc()
+			terminalArea.state = "login"
 		}
 	}
 

@@ -74,7 +74,7 @@ Column {
 
 			onAccepted: {
 				passwordInput.readOnly = true
-				proxy.login(usernameInput.text, passwordInput.text, sessionModel.lastIndex)
+				credentialsEntered(usernameInput.text, passwordInput.text)
 			}
 		}
 	}
@@ -143,4 +143,6 @@ Column {
 			Qt.inputMethod.hide()
 		}
 	}
+
+	signal credentialsEntered(string username, string password)
 }
