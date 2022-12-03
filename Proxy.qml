@@ -33,11 +33,30 @@ Item {
 		loginFailed()
 	}
 
-	function powerOff() {}
-	function reboot() {}
-	function suspend() {}
-	function hibernate() {}
-	function hybridSleep() {}
+	function powerOff()
+	{
+		console.log("Powering off")
+	}
+
+	function reboot()
+	{
+		console.log("Rebooting")
+	}
+
+	function suspend()
+	{
+		console.log("Suspending")
+	}
+
+	function hibernate()
+	{
+		console.log("Hibernating")
+	}
+
+	function hybridSleep()
+	{
+		console.log("Hybrid sleeping")
+	}
 
 	signal loginSucceeded()
 
