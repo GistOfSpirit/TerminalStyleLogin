@@ -30,7 +30,7 @@ Rectangle {
 	}
 
 	Column {
-		id: loginForm
+		id: terminalForm
 		spacing: 0
 
 		visible: false
@@ -43,71 +43,8 @@ Rectangle {
 			color: "white"
 		}
 
-		Label {
-			id: loginFailedLabel
-			text: "Login incorrect"
-
-			visible: false
-
-			font.family: "monospace"
-			color: "white"
-		}
-
-		Row {
-			spacing: 0
-
-			Label {
-				text: `${proxy.hostName} login: `
-
-				font.family: "monospace"
-				color: "white"
-			}
-
-			TextInput {
-				id: usernameInput
-
-				focus: true
-
-				font.family: "monospace"
-				color: "white"
-				width: 100
-
-				text: ""
-
-				onAccepted: {
-					terminalArea.setState("password")
-				}
-			}
-		}
-
-		Row {
-			id: passwordRow
-			spacing: 0
-
-			visible: false
-
-			Label {
-				text: "Password: "
-
-				font.family: "monospace"
-				color: "white"
-			}
-
-			TextInput {
-				id: passwordInput
-
-				font.family: "Hack"
-				color: "white"
-				width: 100
-				echoMode: TextInput.NoEcho
-
-				text: ""
-
-				onAccepted: {
-					passwordInput.readOnly = true
-					proxy.login(usernameInput.text, passwordInput.text, sessionModel.lastIndex)
-				}
-			}
+		Login {
+			id: loginForm
 		}
 	}
 
@@ -117,22 +54,6 @@ Rectangle {
 	// 		usernameInput.text = "WORKS"
 	// 	}
 	// }
-
-	Timer {
-		running: true
-		repeat: true
-		interval: 100
-		onTriggered: {
-			if (passwordInput.visible)
-			{
-				passwordInput.forceActiveFocus()
-			}
-			else if(usernameInput.visible)
-			{
-				usernameInput.forceActiveFocus()
-			}
-		}
-	}
 
 	Timer {
 		// Initially the hostname didn't appear, giving it some time
@@ -148,51 +69,9 @@ Rectangle {
 				|| (timePassed >= 1000)
 			)
 			{
-				terminalArea.setState("username")
+				terminalForm.visible = true
 				stop()
 			}
-		}
-	}
-
-	function setState(state)
-	{
-		// Using QML states prevented me from affecting only certain objects
-		switch (state){
-			case "loginFailed":
-			loginFailedLabel.visible = true
-			//fallthrough
-
-			case "username":
-			loginForm.visible = true
-			passwordRow.visible = false
-			usernameInput.readOnly = false
-			usernameInput.text = ""
-			break
-
-			case "password":
-			loginForm.visible = true
-			passwordRow.visible = true
-			usernameInput.readOnly = true
-			passwordInput.readOnly = false
-			passwordInput.text = ""
-			break
-		}
-	}
-
-	Connections {
-		target: proxy
-		function onLoginFailed()
-		{
-			terminalArea.setState("loginFailed")
-		}
-	}
-
-	Connections {
-		target: Qt.inputMethod
-		function onVisibleChanged()
-		{
-			// Prevent virtual keyboard from showing
-			Qt.inputMethod.hide()
 		}
 	}
 }
