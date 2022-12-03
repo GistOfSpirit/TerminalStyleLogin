@@ -33,6 +33,8 @@ Rectangle {
 		id: loginForm
 		spacing: 0
 
+		visible: false
+
 		Label {
 			id: testLabel
 			text: `${proxy.hostName} sddm\n`
@@ -119,7 +121,7 @@ Rectangle {
 	Timer {
 		running: true
 		repeat: true
-		interval: 200
+		interval: 100
 		onTriggered: {
 			if (passwordInput.visible)
 			{
@@ -128,6 +130,26 @@ Rectangle {
 			else if(usernameInput.visible)
 			{
 				usernameInput.forceActiveFocus()
+			}
+		}
+	}
+
+	Timer {
+		// Initially the hostname didn't appear, giving it some time
+		running: true
+		repeat: true
+		interval: 100
+		property int timePassed: 0
+		onTriggered: {
+			timePassed += interval
+
+			if (
+				(proxy.hostName.length > 0)
+				|| (timePassed >= 1000)
+			)
+			{
+				terminalArea.setState("username")
+				stop()
 			}
 		}
 	}
