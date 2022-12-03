@@ -32,7 +32,7 @@ TextInput {
 		font.family: config.fontFamily
 		font.pointSize: config.fontSize
 		color: config.foreground
-		text: "▁"
+		text: "▁" // U+2521, lower one eighth block
 
 		Timer {
 			running: true
