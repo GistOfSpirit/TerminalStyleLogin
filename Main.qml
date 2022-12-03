@@ -73,8 +73,6 @@ Rectangle {
 				text: ""
 
 				onAccepted: {
-					// usernameInput.readOnly = true
-					// passwordRow.visible = true
 					terminalArea.setState("password")
 				}
 			}
@@ -125,12 +123,10 @@ Rectangle {
 		onTriggered: {
 			if (passwordInput.visible)
 			{
-				//testLabel.text = "focusing pass"
 				passwordInput.forceActiveFocus()
 			}
 			else if(usernameInput.visible)
 			{
-				//testLabel.text = "focusing user"
 				usernameInput.forceActiveFocus()
 			}
 		}
@@ -138,6 +134,7 @@ Rectangle {
 
 	function setState(state)
 	{
+		// Using QML states prevented me from affecting only certain objects
 		switch (state){
 			case "loginFailed":
 			loginFailedLabel.visible = true
