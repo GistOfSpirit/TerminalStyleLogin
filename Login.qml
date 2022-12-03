@@ -19,6 +19,8 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
+import "components"
+
 Column {
 	id: loginForm
 	spacing: 0
@@ -27,34 +29,24 @@ Column {
 		id: proxy
 	}
 
-	Label {
+	TermLabel {
 		id: loginFailedLabel
 		text: "Login incorrect"
 
 		visible: false
-
-		font.family: "monospace"
-		color: "white"
 	}
 
 	Row {
 		spacing: 0
 
-		Label {
+		TermLabel {
 			text: `${proxy.hostName} login: `
-
-			font.family: "monospace"
-			color: "white"
 		}
 
-		TextInput {
+		TermInput {
 			id: usernameInput
 
 			focus: true
-
-			font.family: "monospace"
-			color: "white"
-			width: 100
 
 			text: ""
 
@@ -70,21 +62,14 @@ Column {
 
 		visible: false
 
-		Label {
+		TermLabel {
 			text: "Password: "
-
-			font.family: "monospace"
-			color: "white"
 		}
 
-		TextInput {
+		TermInput {
 			id: passwordInput
 
-			font.family: "Hack"
-			color: "white"
-			width: 100
 			echoMode: TextInput.NoEcho
-
 			text: ""
 
 			onAccepted: {
@@ -95,7 +80,9 @@ Column {
 	}
 
 	Timer {
-		// Ensuring the input box is always focused, as in a terminal
+		// Ensuring the input box is always focused, as in a terminal.
+		// If neither box visible, ensure they DON'T have focus
+		// to prevent typing
 		running: true
 		repeat: true
 		interval: 100
@@ -107,6 +94,10 @@ Column {
 			else if(usernameInput.visible)
 			{
 				usernameInput.forceActiveFocus()
+			}
+			else
+			{
+				loginForm.forceActiveFocus()
 			}
 		}
 	}

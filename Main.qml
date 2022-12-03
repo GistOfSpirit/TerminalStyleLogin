@@ -19,11 +19,25 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 
+import "components"
+
 Rectangle {
 	id: terminalArea
 	anchors.fill: parent
 
 	color: "black"
+
+	state: "login"
+
+	states: [
+		State {
+			name: "login"
+			PropertyChanges {
+				target: loginForm
+				visible: true
+			}
+		}
+	]
 
 	Proxy {
 		id: proxy
@@ -35,23 +49,20 @@ Rectangle {
 
 		visible: false
 
-		Label {
-			id: testLabel
+		TermLabel {
 			text: `${proxy.hostName} sddm\n`
-
-			font.family: "monospace"
-			color: "white"
 		}
 
 		Login {
 			id: loginForm
+			visible: false
 		}
 	}
 
 	// Keys.onPressed: {
-	// 	if (event.key === 0x01000030 /*F1*/)
+	// 	if (event.key === Qt.Key_F1)
 	// 	{
-	// 		usernameInput.text = "WORKS"
+	// 		terminalArea.state = "login"
 	// 	}
 	// }
 
