@@ -21,68 +21,92 @@ import QtQuick.Controls 2.15
 
 import "components"
 
-TermLabel {
-	text: ""
+Column {
+	TermLabel {
+		id: listLabel
+		text: ""
+	}
 
 	Proxy {
 		id: proxy
 	}
 
+	property var options: []
+
 	onVisibleChanged: {
 		if (visible)
 		{
-			const options = ["---POWER OPTIONS---"]
+			options = []
 
 			if (proxy.canPowerOff)
 			{
-				options.push("1 - Power Off")
+				options.push({
+					key: Qt.Key_1,
+					number: 1,
+					text: "Power Off",
+					action: proxy.powerOff
+				})
 			}
 
 			if (proxy.canReboot)
 			{
-				options.push("2 - Reboot")
+				options.push({
+					key: Qt.Key_2,
+					number: 2,
+					text: "Reboot",
+					action: proxy.reboot
+				})
 			}
 
 			if (proxy.canSuspend)
 			{
-				options.push("3 - Suspend")
+				options.push({
+					key: Qt.Key_3,
+					number: 3,
+					text: "Suspend",
+					action: proxy.suspend
+				})
 			}
 
 			if (proxy.canHibernate)
 			{
-				options.push("4 - Hibernate")
+				options.push({
+					key: Qt.Key_4,
+					number: 4,
+					text: "Hibernate",
+					action: proxy.hibernate
+				})
 			}
 
 			if (proxy.canHybridSleep)
 			{
-				options.push("5 - Hybrid Sleep")
+				options.push({
+					key: Qt.Key_5,
+					number: 5,
+					text: "Hybrid Sleep",
+					action: proxy.hybridSleep
+				})
 			}
 
-			options.push("Esc - Return to login")
+			const dispOptions = ["---POWER OPTIONS---"]
 
-			text = options.join("\n")
+			options.forEach((o) => dispOptions.push(`${o.number} - ${o.text}`))
+
+			dispOptions.push("Esc - Return to login")
+
+			listLabel.text = dispOptions.join("\n")
 		}
 	}
 
 	function handleKey(event)
 	{
-		switch (event.key)
+		for (const option of options)
 		{
-			case Qt.Key_1:
-				proxy.powerOff()
-				break
-			case Qt.Key_2:
-				proxy.reboot()
-				break
-			case Qt.Key_3:
-				proxy.suspend()
-				break
-			case Qt.Key_4:
-				proxy.hibernate()
-				break
-			case Qt.Key_5:
-				proxy.hybridSleep()
-				break
+			if (option.key === event.key)
+			{
+				option.action()
+				return
+			}
 		}
 	}
 }
