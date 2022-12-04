@@ -88,13 +88,16 @@ Rectangle {
 	}
 
 	Keys.onPressed: {
-		if (event.key === Qt.Key_F1)
+		if (terminalArea.state === "login")
 		{
-			terminalArea.state = "power"
-		}
-		else if (event.key === Qt.Key_F2)
-		{
-			terminalArea.state = "session"
+			if (event.key === Qt.Key_F1)
+			{
+				terminalArea.state = "power"
+			}
+			else if (event.key === Qt.Key_F2)
+			{
+				terminalArea.state = "session"
+			}
 		}
 		else if (terminalArea.state === "power")
 		{
