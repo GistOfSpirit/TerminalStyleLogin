@@ -24,12 +24,15 @@ An SDDM theme that looks like a terminal
 ## Screenshots
 
 Sample login prompt:
+
 ![Screenshot of the login prompt](preview.png)
 
 Sample power options menu:
+
 ![Screenshot of the power options](PowerOptions.png)
 
 Sample session menu:
+
 ![Screenshot of the session menu](SessionSelector.png)
 
 ## Configuration
