@@ -38,8 +38,8 @@ Sample session menu:
 ## Configuration
 * `fontFamily`: Name of the font to use ([reference](https://doc.qt.io/qt-5/qml-qtquick-textinput.html#font.family-prop))
 * `fontSize`: The size of the font in points ([reference](https://doc.qt.io/qt-5/qml-qtquick-textinput.html#font.pointSize-prop))
-* `foreground`: The colour of the font ([reference](https://doc.qt.io/qt-5/qml-qtquick-textinput.html#color-prop))
-* `background`: The colour of the background (it will fill the entire screen) ([reference](https://doc.qt.io/qt-5/qml-qtquick-rectangle.html#color-prop))
+* `foreground`: The colour of the font ([reference](https://doc.qt.io/qt-5/qml-color.html))
+* `background`: The colour of the background (it will fill the entire screen) ([reference](https://doc.qt.io/qt-5/qml-color.html))
 
 ## Note for installation
 If you install from this repository, first run the `scripts/build.sh` script to produce a `build` directory, and use the contents of this directory to install.
