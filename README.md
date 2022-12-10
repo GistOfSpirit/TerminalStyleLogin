@@ -3,6 +3,8 @@ An SDDM theme that looks like a terminal
 
 ![Screenshot of the login prompt](preview.png)
 
+## [Change Log](CHANGELOG.md)
+
 ## Features
 * Fully controllable by keyboard
 * Allows power management
@@ -11,7 +13,6 @@ An SDDM theme that looks like a terminal
 * Configurable font family/size and background/foreground colour
 
 ### Todo (perhaps)
-* Add keyboard layout support
 * Add translation support
 * Add user selection via menu
 * Allow selecting from more than 9 sessions

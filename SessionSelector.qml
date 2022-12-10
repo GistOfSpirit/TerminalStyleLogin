@@ -42,7 +42,7 @@ TermLabel {
 			{
 				sessions.push({
 					index: i,
-					key: 0x31 + i, //starting at Qt::Key_1
+					key: Qt.Key_1 + i,
 					text: sessionModel.data(
 						sessionModel.index(i, 0),
 						Qt.UserRole + 4
