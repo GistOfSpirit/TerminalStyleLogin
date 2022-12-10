@@ -50,6 +50,13 @@ Rectangle {
 				target: sessionSelector
 				visible: true
 			}
+		},
+		State {
+			name: "layout"
+			PropertyChanges {
+				target: kbLayoutSelector
+				visible: true
+			}
 		}
 	]
 
@@ -85,6 +92,11 @@ Rectangle {
 			id: sessionSelector
 			visible: false
 		}
+
+		KbLayoutSelector {
+			id: kbLayoutSelector
+			visible: false
+		}
 	}
 
 	Keys.onPressed: {
@@ -98,6 +110,10 @@ Rectangle {
 			{
 				terminalArea.state = "session"
 			}
+			else if (event.key === Qt.Key_F3)
+			{
+				terminalArea.state = "layout"
+			}
 		}
 		else if (terminalArea.state === "power")
 		{
@@ -106,6 +122,10 @@ Rectangle {
 		else if (terminalArea.state === "session")
 		{
 			sessionSelector.handleKey(event)
+		}
+		else if (terminalArea.state === "layout")
+		{
+			kbLayoutSelector.handleKey(event)
 		}
 	}
 
@@ -163,6 +183,15 @@ Rectangle {
 
 	Connections {
 		target: sessionSelector
+		function onSelectionMade()
+		{
+			setupFKeyDesc()
+			terminalArea.state = "login"
+		}
+	}
+
+	Connections {
+		target: kbLayoutSelector
 		function onSelectionMade()
 		{
 			setupFKeyDesc()
