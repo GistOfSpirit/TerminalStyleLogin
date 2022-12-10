@@ -29,7 +29,6 @@ TermLabel {
 	}
 
 	property var layouts: []
-	//property int selectedIndex: sessionModel.lastIndex
 
 	onVisibleChanged: {
 		if (visible)
