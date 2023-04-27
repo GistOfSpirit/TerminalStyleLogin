@@ -41,4 +41,11 @@ TextInput {
 			onTriggered: cursor.visible = !cursor.visible && !control.readOnly
 		}
 	}
+
+	onReadOnlyChanged: {
+		if (readOnly)
+		{
+			cursorVisible = false
+		}
+	}
 }
