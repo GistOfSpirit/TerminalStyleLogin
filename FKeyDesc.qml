@@ -18,10 +18,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import SddmComponents 2.0
 
 import "components"
 
 TermLabel {
+	TextConstants {
+		id: txts
+	}
+
 	function setup({ sessionIndex }) {
 		const sessionText = sessionModel.data(
 			sessionModel.index(sessionIndex, 0),
@@ -29,13 +34,13 @@ TermLabel {
 		)
 
 		const menus = [
-			"F1 - Power Options",
-			`F2 - Session [${sessionText}]`
+			`F1 - ${txts.shutdown}+`,
+			`F2 - ${txts.session} [${sessionText}]`
 		]
 
 		if (keyboard.layouts.length > 1)
 		{
-			menus.push(`F3 - Keyboard Layout `
+			menus.push(`F3 - ${txts.layout} `
 				+ `[${keyboard.layouts[keyboard.currentLayout].longName}]`)
 		}
 

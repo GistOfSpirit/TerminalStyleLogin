@@ -18,6 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import SddmComponents 2.0
 
 import "components"
 
@@ -60,6 +61,10 @@ Rectangle {
 		}
 	]
 
+	TextConstants {
+		id: txts
+	}
+
 	Proxy {
 		id: proxy
 	}
@@ -75,7 +80,9 @@ Rectangle {
 		}
 
 		TermLabel {
-			text: `${proxy.hostName} sddm\n`
+			text: !!parseInt(config.translatePrompt, 10)
+				? txts.welcomeText.arg(proxy.hostName)
+				: `${proxy.hostName} sddm\n`
 		}
 
 		Login {

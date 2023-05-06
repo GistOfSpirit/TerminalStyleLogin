@@ -18,6 +18,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import SddmComponents 2.0
 
 import "components"
 
@@ -25,14 +26,21 @@ Column {
 	id: loginForm
 	spacing: 0
 
+	TextConstants {
+		id: txts
+	}
+
 	Proxy {
 		id: proxy
 	}
 
+	property bool translatePrompt: !!parseInt(config.translatePrompt, 10)
+
 	TermLabel {
 		id: loginFailedLabel
-		text: "Login incorrect"
-
+		text: translatePrompt
+			? txt.loginFailed
+			: "Login incorrect"
 		visible: false
 	}
 
@@ -40,7 +48,9 @@ Column {
 		spacing: 0
 
 		TermLabel {
-			text: `${proxy.hostName} login: `
+			text: translatePrompt
+				? `${proxy.hostName} ${txts.userName}: `
+				: `${proxy.hostName} login: `
 		}
 
 		TermInput {
@@ -63,7 +73,9 @@ Column {
 		visible: false
 
 		TermLabel {
-			text: "Password: "
+			text: translatePrompt
+				? `${txts.password}: `
+				: "Password: "
 		}
 
 		TermInput {
@@ -107,23 +119,23 @@ Column {
 		// Using QML states prevented me from affecting only certain objects
 		switch (state) {
 			case "loginFailed":
-			loginFailedLabel.visible = true
-			//fallthrough
+				loginFailedLabel.visible = true
+				//fallthrough
 
 			case "username":
-			loginForm.visible = true
-			passwordRow.visible = false
-			usernameInput.readOnly = false
-			usernameInput.text = ""
-			break
+				loginForm.visible = true
+				passwordRow.visible = false
+				usernameInput.readOnly = false
+				usernameInput.text = ""
+				break
 
 			case "password":
-			loginForm.visible = true
-			passwordRow.visible = true
-			usernameInput.readOnly = true
-			passwordInput.readOnly = false
-			passwordInput.text = ""
-			break
+				loginForm.visible = true
+				passwordRow.visible = true
+				usernameInput.readOnly = true
+				passwordInput.readOnly = false
+				passwordInput.text = ""
+				break
 		}
 	}
 

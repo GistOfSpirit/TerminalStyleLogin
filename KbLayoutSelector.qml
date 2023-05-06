@@ -18,10 +18,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import SddmComponents 2.0
 
 import "components"
 
 TermLabel {
+	TextConstants {
+		id: txts
+	}
+
 	text: ""
 
 	Proxy {
@@ -46,12 +51,12 @@ TermLabel {
 				})
 			}
 
-			const dispOptions = ["---KEYBOARD LAYOUTS---"]
+			const dispOptions = [`---${txts.layout.toUpperCase()}---`]
 
 			layouts.forEach(
 				(o) => dispOptions.push(`${o.index + 1} - ${o.text}`))
 
-			dispOptions.push("Esc - Return to login")
+			dispOptions.push(`Esc - ${txts.login}`)
 
 			text = dispOptions.join("\n")
 		}

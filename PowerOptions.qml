@@ -18,10 +18,15 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 import QtQuick 2.15
 import QtQuick.Controls 2.15
+import SddmComponents 2.0
 
 import "components"
 
 Column {
+	TextConstants {
+		id: txts
+	}
+
 	TermLabel {
 		id: listLabel
 		text: ""
@@ -45,7 +50,7 @@ Column {
 			when: selection !== undefined
 			PropertyChanges {
 				target: confirmLabel
-				text: `\nConfirm ${selection.text}? (y/n)`
+				text: `${selection.text} (y/n)`
 				visible: true
 			}
 		}
@@ -61,7 +66,7 @@ Column {
 				options.push({
 					key: Qt.Key_1,
 					number: 1,
-					text: "Power Off",
+					text: txts.shutdown,
 					action: proxy.powerOff
 				})
 			}
@@ -71,7 +76,7 @@ Column {
 				options.push({
 					key: Qt.Key_2,
 					number: 2,
-					text: "Reboot",
+					text: txts.reboot,
 					action: proxy.reboot
 				})
 			}
@@ -81,7 +86,7 @@ Column {
 				options.push({
 					key: Qt.Key_3,
 					number: 3,
-					text: "Suspend",
+					text: txts.suspend,
 					action: proxy.suspend
 				})
 			}
@@ -91,7 +96,7 @@ Column {
 				options.push({
 					key: Qt.Key_4,
 					number: 4,
-					text: "Hibernate",
+					text: txts.hibernate,
 					action: proxy.hibernate
 				})
 			}
@@ -106,11 +111,11 @@ Column {
 				})
 			}
 
-			const dispOptions = ["---POWER OPTIONS---"]
+			const dispOptions = [`---${txts.shutdown.toUpperCase()}+---`]
 
 			options.forEach((o) => dispOptions.push(`${o.number} - ${o.text}`))
 
-			dispOptions.push("Esc - Return to login")
+			dispOptions.push(`Esc - ${txts.login}`)
 
 			listLabel.text = dispOptions.join("\n")
 		}
