@@ -1,6 +1,6 @@
 /*
 TerminalStyleLogin - An SDDM theme that looks like a terminal
-Copyright (C) 2022 Rea-Klairi Tasopoulou
+Copyright (C) 2022-2024 Rea Klairi Tasopoulou
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -39,6 +39,6 @@ TermLabel {
 				+ `[${keyboard.layouts[keyboard.currentLayout].longName}]`)
 		}
 
-		text = `${menus.join(" | ")}\n`
+		text = `${menus.join(" | ")}\n\n`
 	}
 }
