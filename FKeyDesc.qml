@@ -41,6 +41,6 @@ TermLabel {
 
 		text = `${menus.join(" | ")}`
 
-		bottomPadding = height
+		bottomPadding = contentHeight
 	}
 }
