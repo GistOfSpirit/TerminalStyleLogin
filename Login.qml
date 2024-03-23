@@ -24,6 +24,7 @@ import "components"
 Column {
 	id: loginForm
 	spacing: 0
+	property var badLogins: []
 
 	Proxy {
 		id: proxy
@@ -31,15 +32,13 @@ Column {
 
 	TermLabel {
 		id: loginFailedLabel
-		text: "Login incorrect"
-
-		visible: false
 	}
 
 	Row {
 		spacing: 0
 
 		TermLabel {
+			id: usernameLabel
 			text: `${proxy.hostName} login: `
 		}
 
@@ -63,6 +62,7 @@ Column {
 		visible: false
 
 		TermLabel {
+			id: passwordLabel
 			text: "Password: "
 		}
 
@@ -102,12 +102,24 @@ Column {
 		}
 	}
 
+	function updateLoginFailedLabel()
+	{
+		if (badLogins.length > 3)
+		{
+			badLogins = badLogins.slice(-3)
+		}
+
+		loginFailedLabel.text = badLogins.map((un) => `${usernameLabel.text}`
+				+`${un}\n${passwordLabel.text}\n\nLogin incorrect`)
+			.join("\n")
+	}
+
 	function setState(state)
 	{
 		// Using QML states prevented me from affecting only certain objects
 		switch (state) {
 			case "loginFailed":
-			loginFailedLabel.visible = true
+			updateLoginFailedLabel()
 			//fallthrough
 
 			case "username":
@@ -131,6 +143,11 @@ Column {
 		target: proxy
 		function onLoginFailed()
 		{
+			if (usernameInput.text.length > 0)
+			{
+				badLogins.push(usernameInput.text)
+			}
+			
 			loginForm.setState("loginFailed")
 		}
 	}
