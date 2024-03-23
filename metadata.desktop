@@ -12,3 +12,4 @@ MainScript=Main.qml
 Email=rk.tasopoulou@proton.me
 Theme-Id=terminalStyleLogin
 Theme-API=2.0
+QtVersion=6
