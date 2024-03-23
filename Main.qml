@@ -1,6 +1,6 @@
 /*
 TerminalStyleLogin - An SDDM theme that looks like a terminal
-Copyright (C) 2022 Rea-Klairi Tasopoulou
+Copyright (C) 2022-2024 Rea Klairi Tasopoulou
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -75,7 +75,8 @@ Rectangle {
 		}
 
 		TermLabel {
-			text: `${proxy.hostName} sddm\n`
+			text: `${proxy.hostName} sddm`
+			bottomPadding: height
 		}
 
 		Login {
@@ -99,7 +100,7 @@ Rectangle {
 		}
 	}
 
-	Keys.onPressed: {
+	Keys.onPressed: (event) => {
 		if (terminalArea.state === "login")
 		{
 			if (event.key === Qt.Key_F1)
