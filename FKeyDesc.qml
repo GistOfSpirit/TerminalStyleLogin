@@ -39,6 +39,8 @@ TermLabel {
 				+ `[${keyboard.layouts[keyboard.currentLayout].longName}]`)
 		}
 
-		text = `${menus.join(" | ")}\n\n`
+		text = `${menus.join(" | ")}`
+
+		bottomPadding = height
 	}
 }

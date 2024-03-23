@@ -75,7 +75,8 @@ Rectangle {
 		}
 
 		TermLabel {
-			text: `${proxy.hostName} sddm\n\n`
+			text: `${proxy.hostName} sddm`
+			bottomPadding: height
 		}
 
 		Login {
